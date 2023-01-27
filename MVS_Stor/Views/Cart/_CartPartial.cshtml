@@ -1,0 +1,9 @@
+﻿@model MVS_Stor.Models.ViewModels.Cart.CartVM
+
+<div class="ajaxcart">
+    youre cart: @Model.Quantity items(s) - @Model.Price $
+    <br />
+    @Html.ActionLink("Checkout", "Index")
+</div>
+
+<link href="~/Content/Site.css" rel="stylesheet" />

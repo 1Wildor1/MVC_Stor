@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -Admin Area</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            @Html.ActionLink("Dashboard", "Index", "Dashboard", "", new { @class = "navbard-brand" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        @Html.ActionLink("Pages", "Index", "Pages", "", new { @class = "nav-link" }) <!--(урок 6)-->
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Sidebar", "EditSidebar", "Pages", "", new { @class = "nav-link" }) <!--(урок 6)-->
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Categories", "Categories", "Shop", "", new { @class = "nav-link" }) <!--(урок 15)-->
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Products", "Products", "Shop", "", new { @class = "nav-link" }) <!--(урок 15)-->
+                    </li>
+                </ul>
+
+                <!--new right menu-->
+                <ul class="navbar-brand m-lg-auto ">
+                    <li>
+                        <a href="#" class="navbar-brand" target="_blank">Shopping Cart</a>
+                    </li>
+                </ul>
+                @*<span class="navbar-text">
+                        sdnfsdbkjg jsdglkjsgbsdklgn
+                    </span>*@
+
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My MVC Store</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    <!--подключаем бандл к сайту(урок 5)-->
+    @Scripts.Render("~/bundles/jqueryui")
+    
+    <!--(урок 7)-->
+    @Scripts.Render("~/bundles/ckeditor")
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

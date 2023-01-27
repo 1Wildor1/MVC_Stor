@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MVC 5 Shopping Cart</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">Demonick Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                @Html.Action("PagesMenuPartial", "Pages")
+
+                <!--урок 24-->
+
+                @if (Request.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration: none" })</li>
+                }
+                else
+                {
+                    if (ViewBag.Title == "Login")
+                    {
+                        <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration: none" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration: none" })</li>
+                    }
+                }
+
+                <!--урок 25-->
+                @if (Request.IsAuthenticated && User.IsInRole("User"))
+                {
+                    if (ViewBag.Title == "User Profile")
+                    {
+                        <li class="active">@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                    }
+                }
+                <!--********************-->
+            </ul>
+
+            <!--урок 25-->
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <span class="navbar-text ">
+                        @Html.ActionLink("Admin Area", "Index", "Dashboard", new { area = "Admin" }, null)
+                    </span>
+                }
+                else
+                {
+                    if (ViewBag.Title != "Cart Details")
+                    {
+                        <span class="navbar-text ">
+                            @Html.Action("CartPartial", "Cart")
+                        </span>
+                    }
+                }
+        </div>
+    </nav>
+
+        <div class="container body-content">
+            <div class="row" style="margin-top:100px">
+
+                <!--урок 18-->
+
+                <div class="col-sm-12 col-md-3 list-group">
+                    @Html.Action("CategoryMenuPartial","Shop")
+                </div>
+                <!--*********************************************************-->
+                @if (ViewBag.Sidebar == "Yes")
+                {
+                    <div class="col">
+                        @RenderBody()
+                 </div>
+                    <div class="col-sm-12 col-md-3">
+                        @Html.Action("SidebarPartial", "Pages")
+                    </div>
+                }
+                else
+                {
+                    <div class="col">
+                        @RenderBody()
+                    </div>
+                }
+            </div>
+
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - MVS Shop</p>
+            </footer>
+        </div>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
